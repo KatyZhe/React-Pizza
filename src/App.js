@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Categories from "./components/Categories/Categories";
 import Sort from "./components/Sort/Sort";
+import PizzaBlock from "./components/PizzaBlock/PizzaBlock";
 
 function App() {
   return (
@@ -13,6 +14,13 @@ function App() {
             <Categories />
             <Sort />
           </div>
+          <h2 className="content__title">Все пиццы</h2>
+          <div className="content__items">
+              <PizzaBlock title={'Мексиканская'} price={450} />
+              <PizzaBlock title={'Гавайская'} price={550} />
+              <PizzaBlock title={'4 сыра'} price={600} />
+              <PizzaBlock title={'Маринера'} price={750} />
+            </div>
         </div>
       </div>
     </div>
