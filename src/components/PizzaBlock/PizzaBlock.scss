@@ -1,11 +1,10 @@
 .pizza-block {
   width: 280px;
   text-align: center;
+  margin: auto;
   margin-bottom: 65px;
 }
-.pizza-block:not(:nth-of-type(4n)) {
-  margin-right: 35px;
-}
+
 .pizza-block__image {
   width: 260px;
 }

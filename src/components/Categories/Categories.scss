@@ -2,6 +2,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-wrap: wrap;
 }
 .categories ul li {
   background-color: #f9f9f9;
@@ -27,4 +28,10 @@
 .categories ul li.active {
   background-color: #282828;
   color: #fff;
+}
+
+@media screen and (max-width: 1060px) {
+  .categories {
+    margin-top: 30px;
+  }
 }
