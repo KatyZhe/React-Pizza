@@ -1,13 +1,6 @@
 import "./Categories.scss";
-import { useState } from "react";
 
-const Categories = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const onClickCategory = (index) => {
-    setActiveIndex(index);
-  };
-
+const Categories = ({ value, onClickCategory }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -20,12 +13,13 @@ const Categories = () => {
   return (
     <div className="categories">
       <ul>
-        {categories.map((value, i) => (
-          <li key={i}
+        {categories.map((categorieName, i) => (
+          <li
+            key={i}
             onClick={() => onClickCategory(i)}
-            className={activeIndex === i ? "active" : ""}
+            className={value === i ? "active" : ""}
           >
-            {value}
+            {categorieName}
           </li>
         ))}
       </ul>

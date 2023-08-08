@@ -1,19 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import pizzas from "../../assets/pizzas.json";
-import { useState } from "react";
-
-import Categories from '../Categories/Categories';
-import Sort from '../Sort/Sort';
-import Skeleton from '../PizzaBlock/Skeleton';
-import PizzaBlock from '../PizzaBlock/PizzaBlock';
+import Categories from "../Categories/Categories";
+import Sort from "../Sort/Sort";
+import Skeleton from "../PizzaBlock/Skeleton";
+import PizzaBlock from "../PizzaBlock/PizzaBlock";
 
 const Main = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [pizzas, setPizzas] = useState([]);
+  const [categorieId, setCategorieId] = useState(0);
+  const [sortType, setSortType] = useState(0);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("https://64d275adf8d60b174362151e.mockapi.io/pizzas?category=" + categorieId)
+      .then((res) => {
+        return res.json();
+      })
+      .then((arr) => {
+        setPizzas(arr);
+        setIsLoading(false);
+      });
+    window.scroll(0, 0);
+  }, [categorieId]);
+
   return (
     <>
       <div className="content__top">
-        <Categories />
+        <Categories
+          value={categorieId}
+          onClickCategory={(i) => setCategorieId(i)}
+        />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>

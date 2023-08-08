@@ -4,9 +4,7 @@ import Main from "./components/Main/Main";
 import NotFound from "./components/NotFound/NotFound";
 import Cart from './components/Cart/Cart';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
