@@ -1,0 +1,33 @@
+.search {
+  position: relative;
+
+  &__input {
+    width: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 40px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  &__search {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 22px;
+    height: 22px;
+    opacity: 0.3;
+  }
+
+  &__clear {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    opacity: 0.3;
+  }
+
+  &__clear:hover {
+    opacity: 0.8;
+  }
+}
