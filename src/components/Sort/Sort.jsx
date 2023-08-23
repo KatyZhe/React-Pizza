@@ -1,27 +1,46 @@
 import "./Sort.scss";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setSort } from "../../redux/slices/filterSlice";
 
+export const sortList = [
+  { name: "популярности (DESC)", sort: "rating" },
+  { name: "популярности (ASC)", sort: "-rating" },
+  { name: "цене (DESC)", sort: "price" },
+  { name: "цене (ASC)", sort: "-price" },
+  { name: "алфавиту (DESC)", sort: "title" },
+  { name: "алфавиту (ASC)", sort: "-title" },
+];
+
 const Sort = () => {
   const dispatch = useDispatch();
-  const sort = useSelector(state => state.filter.sort);
+  const sort = useSelector((state) => state.filter.sort);
+  const sortRef = useRef();
 
   const [open, setOpen] = useState(false);
-  const list = [
-    { name: "популярности", sort: 'rating' },
-    { name: "цене", sort: 'price' },
-    { name: "алфавиту", sort: 'title' },
-  ];
 
   const onClickItem = (obj) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      let path = event.path || (event.composedPath && event.composedPath());
+      if (!path.includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -41,11 +60,13 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((obj, i) => (
+            {sortList.map((obj, i) => (
               <li
                 key={i}
                 onClick={() => onClickItem(obj)}
-                className={sort.sort === obj.sort ? "active" : ""}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
               >
                 {obj.name}
               </li>
@@ -57,4 +78,4 @@ const Sort = () => {
   );
 };
 
-export default Sort;
+export default { Sort };
