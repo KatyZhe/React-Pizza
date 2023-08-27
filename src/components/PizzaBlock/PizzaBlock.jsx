@@ -29,10 +29,6 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     dispatch(addItem(item));
   };
 
-  const onPlusOne = () => {
-    setCount(count + 1);
-  };
-
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />

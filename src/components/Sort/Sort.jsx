@@ -13,7 +13,7 @@ export const sortList = [
   { name: "алфавиту (ASC)", sort: "-title" },
 ];
 
-const Sort = () => {
+export const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
   const sortRef = useRef();
@@ -77,5 +77,3 @@ const Sort = () => {
     </div>
   );
 };
-
-export default { Sort };

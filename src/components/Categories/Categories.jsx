@@ -1,6 +1,8 @@
 import "./Categories.scss";
+import { useSelector } from "react-redux";
 
-const Categories = ({ value, onClickCategory }) => {
+const Categories = ({ onClickCategory }) => {
+  const { status } = useSelector((state) => state.pizza);
   const categories = [
     "Все",
     "Мясные",
@@ -17,7 +19,7 @@ const Categories = ({ value, onClickCategory }) => {
           <li
             key={i}
             onClick={() => onClickCategory(i)}
-            className={value === i ? "active" : ""}
+            className={status === i ? "active" : ""}
           >
             {categorieName}
           </li>

@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import qs from "qs";
 
 import {
@@ -17,18 +17,15 @@ import Skeleton from "../PizzaBlock/Skeleton";
 import PizzaBlock from "../PizzaBlock/PizzaBlock";
 import Pagination from "../Pagination/Pagination";
 
-import { SearchContext } from "../../App";
-
 const Main = () => {
-  const { items, status } = useSelector((state) => state.pizza.items);
-  const { categoryId, sort, currentPage } = useSelector(selectFilter);
+  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-
-  const { searchValue } = useContext(SearchContext);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -38,7 +35,11 @@ const Main = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const pizzas = items.map((obj) => <PizzaBlock {...obj} key={obj.id} />);
+  const pizzas = items.map((obj, i) => (
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ));
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -55,7 +56,6 @@ const Main = () => {
 
   // Если был первый рендер, то запрашиваем пиццы
   useEffect(() => {
-    window.scroll(0, 0);
     if (!isSearch.current) {
       getPizzas();
     }
@@ -95,7 +95,7 @@ const Main = () => {
   return (
     <>
       <div className="content__top">
-        <Categories value={categoryId} onClickCategory={onChangeCategory} />
+        <Categories onClickCategory={onChangeCategory} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
