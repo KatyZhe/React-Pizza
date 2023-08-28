@@ -1,7 +1,13 @@
+import React from "react";
 import "./Categories.scss";
 import { useSelector } from "react-redux";
 
-const Categories = ({ onClickCategory }) => {
+type CategoriesProps = {
+  value: number;
+  onClickCategory: (idx: number) => void;
+};
+
+const Categories: React.FC<CategoriesProps> = ({ value, onClickCategory }) => {
   const { status } = useSelector((state) => state.pizza);
   const categories = [
     "Все",
@@ -19,7 +25,7 @@ const Categories = ({ onClickCategory }) => {
           <li
             key={i}
             onClick={() => onClickCategory(i)}
-            className={status === i ? "active" : ""}
+            className={value === i ? "active" : ""}
           >
             {categorieName}
           </li>
