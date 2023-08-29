@@ -17,3 +17,13 @@ declare module "lodash.debounce" {
   const content: any;
   export default content;
 }
+
+declare module "lodash/identity" {
+  const content: any;
+  export default content;
+}
+
+declare module "lodash/pickBy" {
+  const content: any;
+  export default content;
+}
