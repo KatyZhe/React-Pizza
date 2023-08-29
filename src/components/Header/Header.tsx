@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import Search from "../Search/Search";
 
-import { selectCart } from "../../redux/slices/cartSlice";
+import { selectCart } from "../../redux/cart/cartSlice";
 
 const Header = () => {
   const { items, totalPrice } = useSelector(selectCart);

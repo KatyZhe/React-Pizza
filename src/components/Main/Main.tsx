@@ -8,8 +8,8 @@ import {
   setCurrentPage,
   setFilters,
   selectFilter,
-} from "../../redux/slices/filterSlice";
-import { fetchPizzas } from "../../redux/slices/pizzaSlice";
+} from "../../redux/filter/filterSlice";
+import { fetchPizzas } from "../../redux/pizza/pizzaSlice";
 
 import Categories from "../Categories/Categories";
 import { Sort, sortList } from "../Sort/Sort";
@@ -17,7 +17,7 @@ import Skeleton from "../PizzaBlock/Skeleton";
 import PizzaBlock from "../PizzaBlock/PizzaBlock";
 import Pagination from "../Pagination/Pagination";
 
-const Main = () => {
+const Main: React.FC = () => {
   const { items, status } = useSelector((state) => state.pizza);
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
@@ -27,15 +27,15 @@ const Main = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
-  const pizzas = items.map((obj, i) => (
+  const pizzas = items.map((obj: any) => (
     <Link key={obj.id} to={`/pizza/${obj.id}`}>
       <PizzaBlock {...obj} />
     </Link>
@@ -95,7 +95,7 @@ const Main = () => {
   return (
     <>
       <div className="content__top">
-        <Categories onClickCategory={onChangeCategory} />
+        <Categories value={categoryId} onClickCategory={onChangeCategory} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>

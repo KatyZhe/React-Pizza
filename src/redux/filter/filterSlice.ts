@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FilterSliceState, Sort, SortPropertyEnum } from './types';
 
-const initialState = {
+const initialState: FilterSliceState = {
   searchValue: '',
   categoryId: 0,
   currentPage: 1,
   sort: {
-    name: "популярности",
-    sortProperty: "rating",
+    name: 'популярности',
+    sortProperty: SortPropertyEnum.RATING_DESC,
   },
 };
 
@@ -14,29 +15,29 @@ export const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setCategoryId(state, action) {
+    setCategoryId(state, action: PayloadAction<number>) {
       state.categoryId = action.payload;
     },
-    setSort(state, action) {
+    setSort(state, action: PayloadAction<Sort>) {
       state.sort = action.payload;
     },
-    setCurrentPage(state, action) {
+    setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
-    setSearchValue(state, action) {
+    setSearchValue(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;
     },
-    setFilters(state, action) {
+    setFilters(state, action: PayloadAction<FilterSliceState>) {
       if(Object.keys(action.payload).length) {
         state.currentPage = Number(action.payload.currentPage);
         state.sort = action.payload.sort;
         state.categoryId = Number(action.payload.categoryId);
       } else {
         state.currentPage = 1;
-        state.sort = 0;
-        state.categoryId = {
+        state.categoryId = 0;
+        state.sort = {
           name: "популярности",
-          sortProperty: "rating",
+          sortProperty: SortPropertyEnum.RATING_DESC,
         };
       }
     },
@@ -44,6 +45,5 @@ export const filterSlice = createSlice({
 });
 
 export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue } = filterSlice.actions;
-export const selectFilter = (state) => state.filter;
 
 export default filterSlice.reducer;

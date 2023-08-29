@@ -6,7 +6,7 @@ import "./Search.scss";
 import find from "../../img/search_icon.svg";
 import clear from "../../img/close_icon.svg";
 
-import { setSearchValue } from "../../redux/slices/filterSlice";
+import { setSearchValue } from "../../redux/filter/filterSlice";
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,11 +22,11 @@ const Search: React.FC = () => {
   const updateSearchValue = useCallback(
     debounce((str: string) => {
       dispatch(setSearchValue(str));
-    }, 1000),
+    }, 250),
     []
   );
 
-  const onChangeInput = (evt: any) => {
+  const onChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setValue(evt.target.value);
     updateSearchValue(evt.target.value);
   };
