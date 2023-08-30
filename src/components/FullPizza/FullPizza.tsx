@@ -14,7 +14,7 @@ const FullPizza: React.FC = () => {
         );
         setPizza(data);
       } catch (error) {
-        alert(error.message);
+        alert('Ошибка при получении пиццы!');
         navigate("/");
       }
     }

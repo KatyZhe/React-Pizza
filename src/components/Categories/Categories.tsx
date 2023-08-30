@@ -1,6 +1,5 @@
 import React from "react";
 import "./Categories.scss";
-import { useSelector } from "react-redux";
 
 type CategoriesProps = {
   value: number;
@@ -8,7 +7,6 @@ type CategoriesProps = {
 };
 
 const Categories: React.FC<CategoriesProps> = ({ value, onClickCategory }) => {
-  const { status } = useSelector((state) => state.pizza);
   const categories = [
     "Все",
     "Мясные",
