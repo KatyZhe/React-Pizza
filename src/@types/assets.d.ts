@@ -27,3 +27,8 @@ declare module "lodash/pickBy" {
   const content: any;
   export default content;
 }
+
+declare module "react-loadable" {
+  const content: any;
+  export default content;
+}

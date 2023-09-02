@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import qs from "qs";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import {
   setCategoryId,
   setCurrentPage,
-  setFilters,
 } from "../../redux/filter/filterSlice";
 import { fetchPizzas } from "../../redux/pizza/asyncActions";
 import { selectPizzaData } from "../../redux/pizza/selectors";
@@ -14,7 +12,7 @@ import { selectFilter } from "../../redux/filter/selectors";
 import { useAppDispatch } from "../../redux/store";
 
 import Categories from "../Categories/Categories";
-import { Sort, sortList } from "../Sort/Sort";
+import { Sort } from "../Sort/Sort";
 import Skeleton from "../PizzaBlock/Skeleton";
 import PizzaBlock from "../PizzaBlock/PizzaBlock";
 import Pagination from "../Pagination/Pagination";
@@ -25,9 +23,6 @@ const Main: React.FC = () => {
     useSelector(selectFilter);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false);
 
   const onChangeCategory = (idx: number) => {
     dispatch(setCategoryId(idx));
@@ -68,36 +63,6 @@ const Main: React.FC = () => {
   useEffect(() => {
     getPizzas();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
-  
-  // useEffect(() => {
-  //   if (isMounted.current) {
-  //     const queryString = qs.stringify({
-  //       sortProperty: sort.sortProperty,
-  //       categoryId,
-  //       currentPage,
-  //     });
-  //     navigate(`?${queryString}`);
-  //   }
-  //   isMounted.current = true;
-  // }, [categoryId, sort.sortProperty, currentPage]);
-
-  // Если был первый рендер, то проверяем URl-параметры и сохраняем в редуксе
-  // useEffect(() => {
-  //   if (window.location.search) {
-  //     const params = qs.parse(window.location.search.substring(1));
-  //     const sort = sortList.find(
-  //       (obj) => obj.sortProperty === params.sortProperty
-  //     );
-  //     dispatch(
-  //       setFilters({
-  //         ...params,
-  //         sort,
-  //       })
-  //     );
-  //     isSearch.current = true;
-  //   }
-  // }, []);
 
   return (
     <>

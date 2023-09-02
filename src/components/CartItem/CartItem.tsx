@@ -1,7 +1,7 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../../redux/cart/cartSlice';
-import { CartItem as CartItemType } from '../../redux/cart/types';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addItem, minusItem, removeItem } from "../../redux/cart/cartSlice";
+import { CartItem as CartItemType } from "../../redux/cart/types";
 
 type CartItemProps = {
   id: string;
@@ -25,9 +25,11 @@ export const CartItem: React.FC<CartItemProps> = ({
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    dispatch(addItem({
-      id,
-    } as CartItemType));
+    dispatch(
+      addItem({
+        id,
+      } as CartItemType)
+    );
   };
 
   const onClickMinus = () => {
@@ -35,7 +37,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   };
 
   const onClickRemove = () => {
-    if (window.confirm('Вы действительно хотите удалить этот товар?'))
+    if (window.confirm("Вы действительно хотите удалить этот товар?"))
       dispatch(removeItem(id));
   };
 
@@ -51,7 +53,8 @@ export const CartItem: React.FC<CartItemProps> = ({
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
+          disabled={count === 1}
           onClick={onClickMinus}
           className="button button--outline button--circle cart__item-count-minus"
         >
@@ -71,9 +74,9 @@ export const CartItem: React.FC<CartItemProps> = ({
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
-        <div
+        <button
           onClick={onClickPlus}
           className="button button--outline button--circle cart__item-count-plus"
         >
@@ -93,7 +96,7 @@ export const CartItem: React.FC<CartItemProps> = ({
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
       <div className="cart__item-price">
         <b>{price * count}</b>
@@ -123,4 +126,4 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
     </div>
   );
-}
+};
